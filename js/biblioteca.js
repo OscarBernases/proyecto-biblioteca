@@ -20,12 +20,12 @@ export class Biblioteca {
 
             const partes = linea.split(";");
 
-            const titulo = partes[0];
-            const autor = partes[1];
-            const anio = partes[2];
-            const paginas = partes[3];
-            const disponible = partes[4];
-            const genero = partes[5];
+            const titulo = partes[0].trim;
+            const autor = partes[1].trim;
+            const anio = partes[2].trim;
+            const paginas = partes[3].trim;
+            const disponible = partes[4].trim().toLowerCase() === "si";;
+            const genero = partes[5].trim;
 
             const libro = new Libro(titulo, autor, parseInt(anio), parseInt(paginas), disponible, genero);
 
