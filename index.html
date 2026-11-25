@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Biblioteca - Óscar Bernases</title>
-    <link rel="stylesheet" href="css/estilos.css">
-    <script type="module" src="js/app.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo de Biblioteca</title>
+  <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
+  
+  <header class="cabecera">
+    <h1>Biblioteca de Óscar Bernases</h1>
+    <nav id="indice"></nav>
+  </header>
+
+  <main class="contenido">
+
+    <section class="panel-estadisticas" aria-label="Estadísticas">
+      <h2 class="panel-titulo">Estadísticas</h2>
+      <div id="estadisticas"></div>
+    </section>
+
+    <div id="secciones"></div>
+    
+  </main>
+
+  <footer class="pie">
+    <p>Catálogo de Biblioteca — Proyecto DEC + DIW (2º DAW)</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>

@@ -4,12 +4,11 @@ export class Libro {
     this.autor = autor;
     this.anio = anio;
     this.paginas = paginas;
-    this.genero = genero; // Añadido el atributo genero
+    this.genero = genero;
     this.disponible = disponible;
   }
 
   prestar() {
-    // TODO: Contar prestamos y añadir fecha devolución.
     if (this.disponible) {
       this.disponible = false;
       return true;
@@ -27,9 +26,7 @@ export class Libro {
 
   antiguedad() {
     const fechaActual = new Date();
-    const antiguedad = fechaActual.getFullYear() - this.anio;
-    return antiguedad;
-    
+    return fechaActual.getFullYear() - this.anio;
   }
 
   resumen() {

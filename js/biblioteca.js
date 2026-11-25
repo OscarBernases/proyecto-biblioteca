@@ -1,59 +1,59 @@
 import { Libro } from "./libro.js";
 
 export class Biblioteca {
-
     libros = [];
 
     agregar(libro) {
         if (libro instanceof Libro) {
             this.libros.push(libro);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
-    
+
     cargarDesdeTexto(texto) {
-        const lineas = texto.split("\n"); // Dividir el texto en líneas por cada salto de línea
+        const lineas = texto.split("\n").filter((linea) => linea.trim() !== "");
 
         for (const linea of lineas) {
-
             const partes = linea.split(";");
 
-            const titulo = partes[0].trim;
-            const autor = partes[1].trim;
-            const anio = partes[2].trim;
-            const paginas = partes[3].trim;
-            const disponible = partes[4].trim().toLowerCase() === "si";;
-            const genero = partes[5].trim;
+            const titulo = partes[0].trim();
+            const autor = partes[1].trim();
+            const anio = parseInt(partes[2].trim(), 10);
+            const paginas = parseInt(partes[3].trim(), 10);
+            const genero = partes[4].trim();
+            const disponible = partes[5].trim().toLowerCase() === "si";
 
-            const libro = new Libro(titulo, autor, parseInt(anio), parseInt(paginas), disponible, genero);
-
+            const libro = new Libro(titulo, autor, anio, paginas, genero, disponible);
             this.agregar(libro);
         }
     }
 
     buscar(texto) {
         const t = texto.toLowerCase();
-        const libros = this.libros.filter((libro) => libro.titulo.toLowerCase().includes(t) || libro.autor.toLowerCase().includes(t));
-        return libros;
-    }
-
-    // Auxiliar
-    mostrarLibros() {
-        for (const libro of this.libros) {
-            console.log(libro.resumen());
-        }
+        return this.libros.filter(
+            (libro) => libro.titulo.toLowerCase().includes(t) || libro.autor.toLowerCase().includes(t)
+        );
     }
 
     filtrarPorGenero(genero) {
-        const librosPorGenero = this.libros.filter(libro => libro.genero === genero);
-        return librosPorGenero;
+        return this.libros.filter((libro) => libro.genero === genero);
     }
 
     filtrarPorDisponibilidad(disponible) {
-        const filtrados = this.libros.filter(libro => libro.disponible === disponible);
-        return filtrados;
+        return this.libros.filter((libro) => libro.disponible === disponible);
+    }
+
+    ordenarPor(campo, ascendente = true) {
+        const copia = [...this.libros];
+        copia.sort((a, b) => {let comparacion = 0;
+            if (typeof a[campo] === "string") {
+                comparacion = a[campo].localeCompare(b[campo], "es", { sensitivity: "base" });
+            } else {
+                comparacion = a[campo] - b[campo];
+            }
+            return ascendente ? comparacion : -comparacion;});
+        return copia;
     }
 
     generos() {
@@ -64,6 +64,33 @@ export class Biblioteca {
         return Array.from(generos);
     }
 
+    estadisticas() {
+        const totalLibros = this.libros.length;
+        const disponibles = this.filtrarPorDisponibilidad(true).length;
+        const prestados = this.filtrarPorDisponibilidad(false).length;
+
+        const mapaGeneros = new Map();
+        for (const genero of this.generos()) {
+            mapaGeneros.set(genero, this.filtrarPorGenero(genero).length);
+        }
+
+        const sumaPaginas = this.libros.reduce((acc, libro) => acc + libro.paginas, 0);
+        const mediaPaginas = totalLibros > 0 ? Math.round(sumaPaginas / totalLibros) : 0;
+
+        const libroMasAntiguo = this.libros.reduce(
+            (masAntiguo, libro) => (!masAntiguo || libro.anio < masAntiguo.anio ? libro : masAntiguo),
+            null
+        );
+
+        return {
+            totalLibros,
+            disponibles,
+            prestados,
+            mediaPaginas,
+            libroMasAntiguo,
+            porGenero: mapaGeneros
+        };
+    }
 }
 
 export const catalogo = new Biblioteca();
@@ -80,5 +107,3 @@ Campos de Castilla;Antonio Machado;1912;180;poesía;si
 La colmena;Camilo José Cela;1951;340;novela;no
 Meditaciones del Quijote;José Ortega y Gasset;1914;190;ensayo;si
 Platero y yo;Juan Ramón Jiménez;1914;150;poesía;si`);
-
-catalogo.mostrarLibros()
