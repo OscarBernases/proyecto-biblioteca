@@ -1,40 +1,44 @@
 :root {
-  --background: #33548a;
-  --bg-card: #ffffff;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --border-subtle: #e2e8f0;
-  --color-principal: #33548a;
+  --color-fondo: #f1f5f2;
+  --fondo-tarjeta: #ffffff;
+  --texto-principal: #1b2a24;
+  --texto-secundario: #464646;
+  --borde-suave: #d5e0da;
+  --color-principal: #183a2e;
+  --color-acento: #ff9900;
   --color-disponible: #15803d;
-  --bg-disponible: #dcfce7;
+  --fondo-disponible: #dcfce7;
   --color-prestado: #b91c1c;
-  --bg-prestado: #fee2e2;
+  --fondo-prestado: #fee2e2;
 }
 
+/* RESETEO Y ESTILOS BASE (MODELO DE CAJA Y TIPOGRAFÍA) */
+   
 * {
   box-sizing: border-box;
 }
 
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background: var(--background);
+  background-color: var(--color-fondo);
   margin: 0;
-  color: var(--text-main);
+  color: var(--texto-principal);
 }
 
-/* Header */
-.cabecera {
-  position: sticky;
+/* CABECERA E ÍNDICE DE NAVEGACIÓN */
+.cabecera { 
+  position: sticky; /* mantiene la cabecera pegada arriba al hacer scroll */
   top: 0;
   z-index: 10;
-  padding: 0.9rem 1.5rem 0.8rem;
-  background: var(--color-principal);
-  color: #fff;
+  padding: 1rem 1.5rem 0.9rem;
+  background-color: var(--color-principal);
+  color: #ffffff;
   text-align: center;
+  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.15);
 }
 
 .cabecera h1 {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.6rem;
   font-size: 1.5rem;
   font-weight: 700;
 }
@@ -46,41 +50,45 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.4rem 1.5rem;
+  gap: 0.5rem 1.4rem;
 }
 
 .indice-lista a {
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
   font-size: 0.85rem;
-  padding: 0.15rem 0;
+  padding: 0.2rem 0.3rem;
   border-bottom: 2px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
 }
 
+/* Efecto visual al pasar el ratón (:hover) o navegar con el teclado (:focus) */
 .indice-lista a:hover,
 .indice-lista a:focus {
-  border-bottom-color: #fff;
+  color: var(--color-acento);
   outline: none;
 }
 
+/* CONTENEDOR PRINCIPAL Y PANEL DE ESTADÍSTICAS */
 .contenido {
   width: 90%;
-  max-width: 58rem;
-  margin: 1.5rem auto 3rem;
+  max-width: 60rem;
+  margin: 1.8rem auto 3rem;
 }
 
 .panel-estadisticas {
-  background: var(--bg-card);
-  border: 1px solid var(--color-principal);
+  background-color: var(--fondo-tarjeta);
+  border: 1px solid var(--borde-suave);
   border-radius: 0.75rem;
-  padding: 0.9rem 1rem 1rem;
+  padding: 1.1rem 1.2rem;
   margin-bottom: 2.5rem;
   text-align: center;
+  box-shadow: 0 0.2rem 0.5rem rgba(27, 42, 36, 0.05);
 }
 
 .panel-titulo {
-  margin: 0 0 0.5rem;
-  font-size: 1.4rem;
+  margin: 0 0 0.8rem;
+  font-size: 1.35rem;
   color: var(--color-principal);
 }
 
@@ -90,38 +98,42 @@ body {
   padding: 0;
   font-size: 0.85rem;
   line-height: 1.6;
-  columns: 2;
+  columns: 3;
   column-gap: 2rem;
+  text-align: left;
 }
 
 .lista-estadisticas li {
   break-inside: avoid;
-  padding: 0.2rem 0.5rem;
+  padding: 0.3rem 0.6rem;
   border-radius: 0.25rem;
 }
 
+/* Pseudoclase para alternar el color de fondo en filas impares */
 .lista-estadisticas li:nth-child(odd) {
-  background-color: #f8fafc;
+  background-color: var(--color-fondo);
 }
 
+/* SECCIONES DEL CATÁLOGO Y GRID FLEXBOX */
 .seccion-catalogo {
-  background: var(--bg-card);
-  border: 1px solid var(--color-principal);
+  background-color: var(--fondo-tarjeta);
+  border: 1px solid var(--borde-suave);
   border-radius: 0.75rem;
-  padding: 1rem 1rem 1.5rem;
+  padding: 1.2rem 1.2rem 1.8rem;
   margin-bottom: 2.5rem;
-  scroll-margin-top: 6rem;
+  scroll-margin-top: 6.5rem;
+  box-shadow: 0 0.2rem 0.5rem rgba(27, 42, 36, 0.05);
 }
 
 .titulo-seccion {
-  margin: 0 0 1rem;
-  font-size: 1.4rem;
+  margin: 0 0 1.2rem;
+  font-size: 1.35rem;
   color: var(--color-principal);
   text-align: center;
 }
 
 .mensaje-vacio {
-  color: var(--text-muted);
+  color: var(--texto-secundario);
   font-style: italic;
   text-align: center;
 }
@@ -134,20 +146,21 @@ body {
   gap: 1.35rem;
 }
 
-/* Tarjetas */
+/* TARJETAS DE LIBROS Y ETIQUETAS DE ESTADO (RELATIVE + ABSOLUTE) */
 .tarjeta-libro {
   position: relative;
   width: 16.5rem;
   min-height: 13.5rem;
-  background: var(--bg-card);
-  border: 2px solid var(--border-subtle);
-  border-radius: 1rem;
+  background-color: var(--fondo-tarjeta);
+  border: 2px solid var(--borde-suave);
+  border-radius: 0.85rem;
   padding: 2.4rem 1.35rem 1.3rem;
-  box-shadow: 0 0.25rem 0.85rem rgba(15, 23, 42, 0.04);
+  box-shadow: 0 0.25rem 0.75rem rgba(27, 42, 36, 0.05);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 1rem;
+  transition: box-shadow 0.2s;
 }
 
 .tarjeta-libro.disponible {
@@ -159,7 +172,7 @@ body {
 }
 
 .tarjeta-libro:hover {
-  box-shadow: 0 0.75rem 1.5rem rgba(15, 23, 42, 0.1);
+  box-shadow: 0 0.65rem 1.3rem rgba(27, 42, 36, 0.12);
 }
 
 .cabecera-libro {
@@ -169,46 +182,41 @@ body {
   gap: 0.65rem;
 }
 
-.cabecera-libro > div {
-  min-width: 0;
-}
-
 .tarjeta-libro h3 {
-  font-size: 1.08rem;
+  font-size: 1.05rem;
   font-weight: 700;
   line-height: 1.3;
   margin: 0 0 0.25rem;
-  color: var(--text-main);
+  color: var(--texto-principal);
 }
 
 .autor {
-  color: var(--text-muted);
-  font-size: 0.88rem;
+  color: var(--texto-secundario);
+  font-size: 0.86rem;
   line-height: 1.35;
   margin: 0;
 }
 
-/* Insignia posicionada en la esquina superior derecha */
-.badge {
+.etiqueta {
   position: absolute;
   top: 0.65rem;
   right: 0.65rem;
   display: inline-flex;
   align-items: center;
-  padding: 0.18rem 0.5rem;
-  border-radius: 0.5rem;
-  font-size: 0.68rem;
-  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.45rem;
+  font-size: 0.7rem;
+  font-weight: 700;
   white-space: nowrap;
 }
 
-.badge.disponible {
-  background: var(--bg-disponible);
+.etiqueta.disponible {
+  background-color: var(--fondo-disponible);
   color: var(--color-disponible);
 }
 
-.badge.prestado {
-  background: var(--bg-prestado);
+.etiqueta.prestado {
+  background-color: var(--fondo-prestado);
   color: var(--color-prestado);
 }
 
@@ -216,12 +224,12 @@ body {
   list-style: none;
   margin: 0;
   padding: 0.75rem 0 0;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--borde-suave);
   display: flex;
   flex-direction: column;
   gap: 0.45rem;
-  font-size: 0.88rem;
-  color: #334155;
+  font-size: 0.85rem;
+  color: var(--texto-principal);
 }
 
 .lista-detalles li {
@@ -232,14 +240,14 @@ body {
 }
 
 .lista-detalles span {
-  font-weight: 500;
   text-transform: capitalize;
 }
 
-.pie {
+/* PIE DE PÁGINA */
+.footer {
   text-align: center;
-  color: #fff;
+  background-color: var(--color-principal);
+  color: #ffffff;
   font-size: 0.85rem;
   padding: 1.5rem 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
