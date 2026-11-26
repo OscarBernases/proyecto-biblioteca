@@ -20,13 +20,13 @@ proyecto-biblioteca/
 ## Capturas
 
 ### Captura de la aplicación
-<img src="img/aplicacion.png" alt="Aplicación" width="1200">
+<img src="img/aplicacion.png" alt="Aplicación" width="600">
 
 ### Captura de la consola
-<img src="img/consola.png" alt="Consola" width="1200">
+<img src="img/consola.png" alt="Consola" width="600">
 
 ### Captura del validador del W3C sin errores
-<img src="img/w3.png" alt="Validador W3C" width="1200">
+<img src="img/w3.png" alt="Validador W3C" width="600">
 
 ## Arquitectura
 
